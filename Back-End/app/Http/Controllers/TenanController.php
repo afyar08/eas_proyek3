@@ -1,73 +1,76 @@
 <?php
+// File: app/Http/Controllers/TenanController.php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Barang;
+use App\Models\Tenan;
 
-class BarangController extends Controller
+class TenanController extends Controller
 {
+    // Mendapatkan semua data tenan
     public function index()
     {
-        $barang = Barang::all();
-        return response()->json(['data' => $barang]);
+        $tenan = Tenan::all();
+        return response()->json(['data' => $tenan]);
     }
 
-    public function show($id)
+    // Mendapatkan data tenan berdasarkan KodeTenan
+    public function show($kodeTenan)
     {
-        $barang = Barang::find($id);
+        $tenan = Tenan::find($kodeTenan);
 
-        if (!$barang) {
-            return response()->json(['message' => 'Barang not found'], 404);
+        if (!$tenan) {
+            return response()->json(['message' => 'Tenan not found'], 404);
         }
 
-        return response()->json(['data' => $barang]);
+        return response()->json(['data' => $tenan]);
     }
 
+    // Menyimpan data tenan baru
     public function store(Request $request)
     {
         $request->validate([
-            'NamaBarang' => 'required',
-            'Satuan' => 'required',
-            'HargaSatuan' => 'required|numeric',
-            'Stok' => 'required|integer',
+            'KodeTenan' => 'required|unique:tenan,KodeTenan',
+            'NamaTenan' => 'required',
+            'HP' => 'required',
         ]);
 
-        $barang = Barang::create($request->all());
+        $tenan = Tenan::create($request->all());
 
-        return response()->json(['data' => $barang], 201);
+        return response()->json(['data' => $tenan], 201);
     }
 
-    public function update(Request $request, $id)
+    // Memperbarui data tenan berdasarkan KodeTenan
+    public function update(Request $request, $kodeTenan)
     {
-        $barang = Barang::find($id);
+        $tenan = Tenan::find($kodeTenan);
 
-        if (!$barang) {
-            return response()->json(['message' => 'Barang not found'], 404);
+        if (!$tenan) {
+            return response()->json(['message' => 'Tenan not found'], 404);
         }
 
         $request->validate([
-            'NamaBarang' => 'required',
-            'Satuan' => 'required',
-            'HargaSatuan' => 'required|numeric',
-            'Stok' => 'required|integer',
+            'NamaTenan' => 'required',
+            'HP' => 'required',
         ]);
 
-        $barang->update($request->all());
+        $tenan->update($request->all());
 
-        return response()->json(['data' => $barang]);
+        return response()->json(['data' => $tenan]);
     }
 
-    public function destroy($id)
+    // Menghapus data tenan berdasarkan KodeTenan
+    public function destroy($kodeTenan)
     {
-        $barang = Barang::find($id);
+        $tenan = Tenan::find($kodeTenan);
 
-        if (!$barang) {
-            return response()->json(['message' => 'Barang not found'], 404);
+        if (!$tenan) {
+            return response()->json(['message' => 'Tenan not found'], 404);
         }
 
-        $barang->delete();
+        $tenan->delete();
 
-        return response()->json(['message' => 'Barang deleted']);
+        return response()->json(['message' => 'Tenan deleted']);
     }
 }

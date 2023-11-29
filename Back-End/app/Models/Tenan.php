@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class Tenan extends Model
 {
     use HasFactory;
 
     protected $table = 'tenan';
-    protected $primaryKey = 'KodeTenan'; // Sesuaikan dengan kolom yang digunakan sebagai primary key
-    public $incrementing = false; // Tandai bahwa kolom ini tidak di-increment
+    protected $primaryKey = 'KodeTenan';
+    public $incrementing = false;
     protected $fillable = [
-        'KodeBarang',
-        'NamaBarang',
-        'Satuan',
-        'HargaSatuan',
-        'Stok',
+        'KodeTenan',
+        'NamaTenan',
+        'HP',
     ];
 }
