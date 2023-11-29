@@ -74,3 +74,5 @@ class TenanController extends Controller
         return response()->json(['message' => 'Tenan deleted']);
     }
 }
+
+

@@ -1,22 +1,33 @@
 <?php
 
+// File: app/Models/BarangNota.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class BarangNota extends Model
 {
     use HasFactory;
 
-    protected $table = 'barang';
-    protected $primaryKey = 'KodeBarang'; // Sesuaikan dengan kolom yang digunakan sebagai primary key
-    public $incrementing = false; // Tandai bahwa kolom ini tidak di-increment
+    protected $table = 'barang_nota';
     protected $fillable = [
+        'KodeNota',
         'KodeBarang',
-        'NamaBarang',
-        'Satuan',
+        'JumlahBarang',
         'HargaSatuan',
-        'Stok',
+        'Jumlah',
     ];
+
+    // Jika Anda memiliki relasi dengan tabel lain, Anda bisa mendefinisikannya di sini
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'KodeBarang', 'id');
+    }
+
+    public function nota()
+    {
+        return $this->belongsTo(Nota::class, 'KodeNota', 'KodeNota');
+    }
 }
